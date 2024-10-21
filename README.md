@@ -1,46 +1,100 @@
-# Getting Started with Create React App
+# FinanceFlow
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+FinanceFlow is a finance tracking application that allows users to track their transactions and categorize them according to their own needs. The app is divided into web and mobile parts, implemented in React and React Native.
 
-## Available Scripts
+## Content
 
-In the project directory, you can run:
+- [Technology](#technology)
+- [Installation](#installation)
+- [Project Structure](#project-structure)
+- [Features](#features)
+- [Application](#application)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
 
-### `npm start`
+## Technology
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- React (web)
+- React Native (mobile)
+- TypeScript
+- Styled Components
+- Node.js
+- Yarn / npm
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Installation
 
-### `npm test`
+1. **Clone the repository**:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```bash
+   git clone https://github.com/tvoje-uzivatelske-meno/finance-flow.git
+   cd finance-flow
 
-### `npm run build`
+2. **Installing dependencies**:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+For the web part:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    ```bash
+    cd finance-flow-web
+    npm install
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+For the mobile part:
 
-### `npm run eject`
+    ````bash
+    cd finance-flow-mobile
+    npm install
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+3. **Start the application**:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    ```bash
+    npm start
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Project Structure
+The project is divided into two parts: finance-flow-web and finance-flow-mobile.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+finance-flow-web: contains the React application for the web part of the project.
+finance-flow-mobile: Contains a React Native application for mobile devices.
+Each component has its own component structure and stylesheet.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Features
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Add Transaction: users can add a new transaction with amount, description, date and category.
+- Categories.
+- Reporting: Transactions are displayed in a spreadsheet format for an easy overview of expenses.
+- Using Styled Components: components are styled using styled-components for better maintainability and clarity.
+
+## Usage
+
+1. Adding a Transaction: Fill out the form with the transaction information (amount, date, description, and category). The date is preset to the current day, but can be modified.
+
+2. Category Management.
+
+3. View Overview: The list of transactions is organized by date and category, allowing you to keep track of your expenses.
+
+## Development
+To contribute or start a project locally, follow these steps:
+
+Make sure you have Node.js and npm (or Yarn) installed.
+Clone the repository and install the dependencies.
+Run the project using the commands listed in the Installation section.
+
+### Development Commands
+- npm start: starts the development server for the web application.
+- npm run lint: Checks the code for errors and flaws.
+- npm run build: Creates an optimized build of the application for production.
+
+## Contributing
+To contribute to the project:
+
+1. Create a new fork of the repository.
+2. Create a new branch (git checkout -b feature-name-feature).
+3. Make the necessary changes and commits (git commit -m 'Description of change').
+4. Push the changes to the branch (git push origin feature-nazov-feature).
+5. Open a Pull Request.
+
+## License
+FinanceFlow is an open-source project.

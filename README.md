@@ -4,7 +4,7 @@ FinanceFlow is a finance tracking application that allows users to track their t
 
 ## Content
 
-- [Technology](#technology)
+- [Architecture Overview](#Architecture-Overview)
 - [Installation](#installation)
 - [Project Structure](#project-structure)
 - [Features](#features)
@@ -13,44 +13,84 @@ FinanceFlow is a finance tracking application that allows users to track their t
 - [Contributing](#contributing)
 - [License](#license)
 
-## Technology
+## Architecture Overview
+This project uses a simple architecture that centers around React's Context API and custom hooks for state management. Local storage (localStorage) is used as the primary means for persisting user data, allowing transactions and categories to be stored locally within the browser.
+
+### Technology
 
 - React (web)
 - React Native (mobile)
 - TypeScript
 - Styled Components
 - Node.js
-- Yarn / npm
+- npm
+
+### Key Components
+
+1. Context API:
+    - Manages global state for transactions and categories, allowing all components to access and modify transactions.
+
+2. Hooks:
+
+    - A custom hooks that abstracts the logic of fetching, storing, and updating transactions and categories in localStorage.
+
+3. LocalStorage Utilities:
+
+    - All interactions with localStorage are abstracted into utils/localStorage.ts, where we centralize saving and loading of transactions and categories
+
+### Data Flow Overview
+```plaintext
+Components
+   |
+   V
+Custom Hooks (useTransactions, useCategories)
+   |
+   V
+Context Providers (TransactionContext, CategoryContext)
+   |
+   V
+LocalStorage Utils (load/save transactions, load/save categories)
+   |
+   V
+Browser localStorage
+```
+
+1. Components like forms or graphs interact with the app state by using hooks or consuming contexts.
+2. State Management: These hooks and contexts manage the app's state and automatically persist changes to localStorage (via the helper functions in localStorage.ts).
+3. LocalStorage Interaction: All read and write operations to localStorage are handled by utility functions, ensuring a centralized and clean approach to data persistence.
+
+``` By keeping localStorage operations within utility functions and managing state through React's context and hooks, the architecture remains scalable and easy to extend in the future (e.g., migrating to a backend). ```
 
 ## Installation
 
 1. **Clone the repository**:
 
-   ```bash
-   git clone https://github.com/tvoje-uzivatelske-meno/finance-flow.git
-   cd finance-flow
+```bash
+git clone https://github.com/tvoje-uzivatelske-meno/finance-flow.git
+cd finance-flow
+```
 
 2. **Installing dependencies**:
 
 For the web part:
 
-    ```bash
-    cd finance-flow-web
-    npm install
-    ```
+```bash
+cd finance-flow-web
+npm install
+```
 
 For the mobile part:
 
-    ````bash
-    cd finance-flow-mobile
-    npm install
-    ```
+```bash
+cd finance-flow-mobile
+npm install
+```
 
 3. **Start the application**:
 
-    ```bash
-    npm start
-    ```
+```bash
+npm start
+```
 
 ## Project Structure
 The project is divided into two parts: finance-flow-web and finance-flow-mobile.

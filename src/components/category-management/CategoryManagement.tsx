@@ -1,92 +1,97 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
-    Container,
-    CategoryList,
-    CategoryItem,
-    CategoryInput,
-    NewCategoryInput,
-    ActionButton,
-    AddButton,
-  } from './CategoryManagement.styles';
+  Container,
+  CategoryList,
+  CategoryItem,
+  CategoryInput,
+  NewCategoryInput,
+  ActionButton,
+  AddButton,
+} from "./CategoryManagement.styles";
+import { Category } from "../../utils/types";
 
-interface CategoryManagementProps {
-  categories: string[];
-  onAddCategory: (newCategory: string) => void;
-  onEditCategory: (oldCategory: string, newCategory: string) => void;
-  onDeleteCategory: (categoryToDelete: string) => void;
-}
+type CategoryManagementProps = {
+  categories: Category[];
+  onAddCategory: (category: Category) => void;
+  onEditCategory: (oldCategory: Category, newCategory: Category) => void;
+  onDeleteCategory: (category: Category) => void;
+};
 
-const CategoryManagement: React.FC<CategoryManagementProps> = ({
+export const CategoryManagement: React.FC<CategoryManagementProps> = ({
   categories,
   onAddCategory,
   onEditCategory,
   onDeleteCategory,
 }) => {
-  const [newCategory, setNewCategory] = useState('');
-  const [editCategory, setEditCategory] = useState('');
-  const [isEditing, setIsEditing] = useState<string | null>(null);
+  const [newCategoryName, setNewCategoryName] = useState<string>("");
+  const [editingCategory, setEditingCategory] = useState<Category | null>(null);
+  const [editedCategoryName, setEditedCategoryName] = useState<string>("");
 
   const handleAddCategory = () => {
-    if (newCategory.trim()) {
+    if (newCategoryName.trim() !== "") {
+      const newCategory: Category = {
+        id: (Math.random() * 1000).toString(), // Generate a simple unique id
+        name: newCategoryName,
+      };
       onAddCategory(newCategory);
-      setNewCategory('');
+      setNewCategoryName("");
     }
   };
 
-  const handleEditCategory = (oldCategory: string) => {
-    if (editCategory.trim()) {
-      onEditCategory(oldCategory, editCategory);
-      setEditCategory('');
-      setIsEditing(null);
+  const handleEditCategory = (category: Category) => {
+    setEditingCategory(category);
+    setEditedCategoryName(category.name);
+  };
+
+  const handleUpdateCategory = () => {
+    if (editingCategory && editedCategoryName.trim() !== "") {
+      const updatedCategory: Category = {
+        ...editingCategory,
+        name: editedCategoryName,
+      };
+      onEditCategory(editingCategory, updatedCategory);
+      setEditingCategory(null);
+      setEditedCategoryName("");
     }
   };
 
-  const handleDeleteCategory = (category: string) => {
+  const handleDeleteCategory = (category: Category) => {
     onDeleteCategory(category);
   };
 
   return (
     <Container>
       <h2>Manage Categories</h2>
+      <NewCategoryInput
+        value={newCategoryName}
+        onChange={(e) => setNewCategoryName(e.target.value)}
+        placeholder="New category name"
+      />
+      <AddButton onClick={handleAddCategory}>Add Category</AddButton>
+      
       <CategoryList>
         {categories.map((category) => (
-          <CategoryItem key={category}>
-            {isEditing === category ? (
+          <CategoryItem key={category.id}>
+            {editingCategory?.id === category.id ? (
               <>
                 <CategoryInput
-                  value={editCategory}
-                  onChange={(e) => setEditCategory(e.target.value)}
-                  placeholder="Edit category name"
+                  value={editedCategoryName}
+                  onChange={(e) => setEditedCategoryName(e.target.value)}
                 />
-                <ActionButton onClick={() => handleEditCategory(category)}>
-                  Save
-                </ActionButton>
-                <ActionButton onClick={() => setIsEditing(null)}>
-                  Cancel
-                </ActionButton>
+                <ActionButton onClick={handleUpdateCategory}>Save</ActionButton>
               </>
             ) : (
               <>
-                <span>{category}</span>
-                <ActionButton onClick={() => setIsEditing(category)}>
-                  Edit
-                </ActionButton>
-                <ActionButton onClick={() => handleDeleteCategory(category)}>
-                  Delete
-                </ActionButton>
+                <span>{category.name}</span>
+                <div>
+                  <ActionButton onClick={() => handleEditCategory(category)}>Edit</ActionButton>
+                  <ActionButton onClick={() => handleDeleteCategory(category)}>Delete</ActionButton>
+                </div>
               </>
             )}
           </CategoryItem>
         ))}
       </CategoryList>
-      <NewCategoryInput
-        value={newCategory}
-        onChange={(e) => setNewCategory(e.target.value)}
-        placeholder="New category name"
-      />
-      <AddButton onClick={handleAddCategory}>Add Category</AddButton>
     </Container>
   );
 };
-
-export default CategoryManagement;

@@ -1,48 +1,9 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import { Button, Table, TableWrapper, Td, Th } from './TransactionTable.styles';
+import { Transaction } from '../../utils/types';
+import { format } from 'date-fns';
 
-interface Transaction {
-  date: string;
-  category: string;
-  amount: number;
-  description?: string;
-}
-
-const TableWrapper = styled.div`
-  overflow-x: auto;
-  margin-top: 20px;
-`;
-
-const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-`;
-
-const Th = styled.th`
-  background-color: #003366;
-  color: #fff;
-  padding: 10px;
-  text-align: left;
-`;
-
-const Td = styled.td`
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-`;
-
-const Button = styled.button`
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  font-weight: bold;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const TransactionTable: React.FC<{ transactions: Transaction[] }> = ({ transactions }) => {
+export const TransactionTable: React.FC<{ transactions: Transaction[] }> = ({ transactions }) => {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   const sortedTransactions = [...transactions].sort((a, b) => {
@@ -74,7 +35,7 @@ const TransactionTable: React.FC<{ transactions: Transaction[] }> = ({ transacti
         <tbody>
           {sortedTransactions.map((transaction, index) => (
             <tr key={index}>
-              <Td>{transaction.date}</Td>
+              <Td>{format(new Date(transaction.date), "dd.MM.yyyy HH:mm")}</Td>
               <Td>{transaction.category}</Td>
               <Td>{transaction.amount}</Td>
               <Td>{transaction.description}</Td>
@@ -85,5 +46,3 @@ const TransactionTable: React.FC<{ transactions: Transaction[] }> = ({ transacti
     </TableWrapper>
   );
 };
-
-export default TransactionTable;

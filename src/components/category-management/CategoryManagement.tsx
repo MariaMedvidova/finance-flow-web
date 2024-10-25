@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import {
-  Container,
+  FormContainer,
   CategoryList,
   CategoryItem,
   CategoryInput,
-  NewCategoryInput,
   ActionButton,
-  AddButton,
+  InputWithIcon,
 } from "./CategoryManagement.styles";
 import { Category } from "../../utils/types";
+import { FaTags } from "react-icons/fa";
 
 type CategoryManagementProps = {
   categories: Category[];
@@ -30,7 +30,7 @@ export const CategoryManagement: React.FC<CategoryManagementProps> = ({
   const handleAddCategory = () => {
     if (newCategoryName.trim() !== "") {
       const newCategory: Category = {
-        id: (Math.random() * 1000).toString(), // Generate a simple unique id
+        id: (Math.random() * 1000).toString(),
         name: newCategoryName,
       };
       onAddCategory(newCategory);
@@ -55,20 +55,18 @@ export const CategoryManagement: React.FC<CategoryManagementProps> = ({
     }
   };
 
-  const handleDeleteCategory = (category: Category) => {
-    onDeleteCategory(category);
-  };
-
   return (
-    <Container>
-      <h2>Manage Categories</h2>
-      <NewCategoryInput
-        value={newCategoryName}
-        onChange={(e) => setNewCategoryName(e.target.value)}
-        placeholder="New category name"
-      />
-      <AddButton onClick={handleAddCategory}>Add Category</AddButton>
-      
+    <FormContainer>
+      <InputWithIcon>
+        <FaTags />
+        <CategoryInput
+          value={newCategoryName}
+          onChange={(e) => setNewCategoryName(e.target.value)}
+          placeholder="New category name"
+        />
+      </InputWithIcon>
+      <ActionButton onClick={handleAddCategory}>Add Category</ActionButton>
+
       <CategoryList>
         {categories.map((category) => (
           <CategoryItem key={category.id}>
@@ -84,14 +82,18 @@ export const CategoryManagement: React.FC<CategoryManagementProps> = ({
               <>
                 <span>{category.name}</span>
                 <div>
-                  <ActionButton onClick={() => handleEditCategory(category)}>Edit</ActionButton>
-                  <ActionButton onClick={() => handleDeleteCategory(category)}>Delete</ActionButton>
+                  <ActionButton onClick={() => handleEditCategory(category)}>
+                    Edit
+                  </ActionButton>
+                  <ActionButton onClick={() => onDeleteCategory(category)}>
+                    Delete
+                  </ActionButton>
                 </div>
               </>
             )}
           </CategoryItem>
         ))}
       </CategoryList>
-    </Container>
+    </FormContainer>
   );
 };

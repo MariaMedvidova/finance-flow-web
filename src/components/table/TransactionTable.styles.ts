@@ -1,8 +1,12 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const TableWrapper = styled.div`
   overflow-x: auto;
-  margin-top: 20px;
+  margin-top: 10px;
+
+  @media (max-width: 768px) {
+    margin-top: 0px;
+  }
 `;
 
 export const Table = styled.table`
@@ -31,5 +35,21 @@ export const Button = styled.button`
 
   &:hover {
     text-decoration: underline;
+  }
+`;
+
+export const Thead = styled.thead`
+  font-size: 16px;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
+`;
+
+export const Tbody = styled.tbody`
+  font-size: 16px;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
   }
 `;

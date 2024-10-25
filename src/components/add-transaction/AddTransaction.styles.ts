@@ -8,18 +8,26 @@ export const FormContainer = styled.form`
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 50%;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const Input = styled.input`
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  flex: 1;
 `;
 
 export const Select = styled.select`
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  flex: 1;
 `;
 
 export const Button = styled.button`
@@ -29,8 +37,18 @@ export const Button = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  
+ 
   &:hover {
     background-color: #45a049;
+  }
+`;
+
+export const InputWithIcon = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+ 
+  svg {
+    color: #666;
   }
 `;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Table, TableWrapper, Td, Th } from './TransactionTable.styles';
+import { Button, Table, TableWrapper, Td, Th, Thead, Tbody } from './TransactionTable.styles';
 import { Transaction } from '../../utils/types';
 import { format } from 'date-fns';
 
@@ -19,7 +19,7 @@ export const TransactionTable: React.FC<{ transactions: Transaction[] }> = ({ tr
   return (
     <TableWrapper>
       <Table>
-        <thead>
+        <Thead>
           <tr>
             <Th>Date</Th>
             <Th>Category</Th>
@@ -31,8 +31,8 @@ export const TransactionTable: React.FC<{ transactions: Transaction[] }> = ({ tr
             </Th>
             <Th>Description</Th>
           </tr>
-        </thead>
-        <tbody>
+        </Thead>
+        <Tbody>
           {sortedTransactions.map((transaction, index) => (
             <tr key={index}>
               <Td>{format(new Date(transaction.date), "dd.MM.yyyy HH:mm")}</Td>
@@ -41,7 +41,7 @@ export const TransactionTable: React.FC<{ transactions: Transaction[] }> = ({ tr
               <Td>{transaction.description}</Td>
             </tr>
           ))}
-        </tbody>
+        </Tbody>
       </Table>
     </TableWrapper>
   );
